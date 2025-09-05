@@ -1,5 +1,5 @@
-function time=calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke_y)
-%{
+function time=solve(distance_attimet_missle_x,distance_attimet_smoke_x,distance_attimet_missle_y,distance_attimet_smoke_y,distance_attimet_missle_z,distance_attimet_smoke_z,check1_x,check1_y)
+    %{
 输入参数
 %}
     global distance_x1 distance_y1 distance_z1;
@@ -13,29 +13,35 @@ function time=calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke
 
     start_time=cast_time+explode_time;
     end_time=min(67,cast_time+explode_time+20);
+    start_time_Func=matlabFunction(start_time,'Vars',[cast_time,explode_time]);
+    end_time_Func=matlabFunction(end_time,'Vars',[cast_time,explode_time]);
 %{
 速度常数计算
 %}
 
 
-    start_judge=end_time;
-    end_judge=end_time;
-    time_judge=0;
+    
 
-    for t=start_time:0.0001:end_time
+    
     %{
     烟雾弹位置
     %}
-        distance_attimet_smoke_x1=distance_smoke_x-velocity_smoke_x*(cast_time+explode_time);
-        distance_attimet_smoke_y1=distance_smoke_y-velocity_smoke_y*(cast_time+explode_time);
-        distance_attimet_smoke_z1=distance_smoke_z-1/2*9.8*explode_time^2-3*(t-cast_time-explode_time);
+    distance_attimet_smoke_x1=distance_smoke_x-velocity_smoke_x*(cast_time+explode_time);
+    distance_attimet_smoke_y1=distance_smoke_y-velocity_smoke_y*(cast_time+explode_time);
+    distance_attimet_smoke_z1=distance_smoke_z-1/2*9.8*explode_time^2-3*(t-cast_time-explode_time);
+    distance_attimet_smoke_x1_Func=matlabFunc(distance_attimet_smoke_x1,'Vars',[cast_time,explode_time]);
+    distance_attimet_smoke_y1_Func=matlabFunc(distance_attimet_smoke_y1,'Vars',[cast_time,explode_time]);
+    distance_attimet_smoke_z1_Func=matlabFunc(distance_attimet_smoke_z1,'Vars',[cast_time,explode_time,t]);
 
     %{
     导弹位置
     %}
-        distance_attimet_missle_x1=distance_x1-velocity_missle_x1*t;
-        distance_attimet_missle_y1=distance_y1-velocity_missle_y1*t;
+    distance_attimet_missle_x1=distance_x1-velocity_missle_x1*t;
+     distance_attimet_missle_y1=distance_y1-velocity_missle_y1*t;
         distance_attimet_missle_z1=distance_z1-velocity_missle_z1*t;
+        distance_attimet_missle_x1_Func=matlabFunc(distance_attimet_missle_x1,'Vars',t);
+        distance_attimet_missle_y1_Func=matlabFunc(distance_attimet_missle_y1,'Vars',t);
+        distance_attimet_missle_z1_Func=matlabFunc(distance_attimet_missle_z1,'Vars',t);
     %{
         distance_attimet_missle_x2=distance_x2-velocity_missle_x2*t;
         distance_attimet_missle_y2=distance_y2-velocity_missle_y2*t;
@@ -79,19 +85,28 @@ function time=calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke
     judge=determine(judge,distance_attimet_missle_x1,distance_attimet_smoke_x1,distance_attimet_missle_y1,distance_attimet_smoke_y1,distance_attimet_missle_z1,distance_attimet_smoke_z1,check1_x,check1_y,t);
     
 
-        if judge==0 && time_judge==0
-            time_judge=1;
-            start_judge=t;
-        else 
-            if judge==1&&time_judge==1
-                end_judge=t;
-                time_judge=2;
-            end
-        end
-    end
-    time=end_judge-start_judge;
-end
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     
+    distance_between=sqrt((distance_attimet_missle_x-distance_attimet_smoke_x)^2+(distance_attimet_missle_y-distance_attimet_smoke_y)^2+(distance_attimet_missle_z-distance_attimet_smoke_z)^2);
+    distance_between_check1=sqrt((distance_attimet_missle_x-check1_x)^2+(distance_attimet_missle_y-check1_y)^2+(distance_attimet_missle_z)^2);
+    distance_between_check2=sqrt((distance_attimet_missle_x-check1_x)^2+(distance_attimet_missle_y-check1_y)^2+(distance_attimet_missle_z-10)^2);
+    theta=asin(10/distance_between);
+    theta1=acos(((distance_attimet_missle_x-distance_attimet_smoke_x)*(distance_attimet_missle_x-check1_x)+(distance_attimet_missle_y-distance_attimet_smoke_y)*(distance_attimet_missle_y-check1_y)+(distance_attimet_missle_z-distance_attimet_smoke_z)*(distance_attimet_missle_z))/(distance_between_check1*distance_between));
+    theta2=acos(((distance_attimet_missle_x-distance_attimet_smoke_x)*(distance_attimet_missle_x-check1_x)+(distance_attimet_missle_y-distance_attimet_smoke_y)*(distance_attimet_missle_y-check1_y)+(distance_attimet_missle_z-distance_attimet_smoke_z)*(distance_attimet_missle_z-10))/(distance_between_check2*distance_between));
+    
 
+end
