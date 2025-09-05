@@ -46,7 +46,7 @@ function time=calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke
         distance_attimet_missle_y3=distance_y3-velocity_missle_y3*t;
         distance_attimet_missle_z3=distance_z3-velocity_missle_z3*t;
     %}
-
+       
 
 %{
 近似计算8个点
@@ -59,8 +59,8 @@ function time=calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke
     check1_x=7*(distance_attimet_missle_y1-200)/distanceproject_attimet_missle_tofake;
     check1_y=-7*(distance_attimet_missle_x1)/distanceproject_attimet_missle_tofake+200;
     judge=determine(judge,distance_attimet_missle_x1,distance_attimet_smoke_x1,distance_attimet_missle_y1,distance_attimet_smoke_y1,distance_attimet_missle_z1,distance_attimet_smoke_z1,check1_x,check1_y,t);
-   
-
+    
+    
     check1_x=-7*(distance_attimet_missle_y1-200)/distanceproject_attimet_missle_tofake;
     check1_y=7*(distance_attimet_missle_x1)/distanceproject_attimet_missle_tofake+200;
     judge=determine(judge,distance_attimet_missle_x1,distance_attimet_smoke_x1,distance_attimet_missle_y1,distance_attimet_smoke_y1,distance_attimet_missle_z1,distance_attimet_smoke_z1,check1_x,check1_y,t);
@@ -79,7 +79,6 @@ function time=calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke
 
     judge=determine(judge,distance_attimet_missle_x1,distance_attimet_smoke_x1,distance_attimet_missle_y1,distance_attimet_smoke_y1,distance_attimet_missle_z1,distance_attimet_smoke_z1,check1_x,check1_y,t);
     
-
 
         if judge==0 && time_judge==0
             time_judge=1;

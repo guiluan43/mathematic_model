@@ -3,10 +3,12 @@ pi=3.14159265358979;
 %{
 输入参数
 %}
-cast_time=1.5;
-explode_time=3.6;
-velocity_smoke_x=120;
-velocity_smoke_y=0;
+
+
+cast_time=0;
+explode_time=0.7;
+velocity_smoke_x=140*cos(-173/180.0*pi);
+velocity_smoke_y=140*sin(-173/180.0*pi);
 velocity_smoke_z=0;
 start_time=cast_time+explode_time;
 end_time=min(67,cast_time+explode_time+20);
@@ -40,10 +42,10 @@ calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke_y)
 
 
 primal_time=0;
-for cast_time=0:0
+for cast_time=0:0.01:1
     for explode_time=0:0.01:1
-        for velocity=130:0.1:140
-            for angle=170:1:180
+        for velocity=100:1:140
+            for angle=-160:-1:-180
                 velocity_smoke_y=velocity*sin(angle/180*pi);
                 velocity_smoke_x=velocity*cos(angle/180*pi);
                 time_tochoose=calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke_y);
@@ -57,6 +59,5 @@ for cast_time=0:0
 end
 
 hyperparameter
-
 
 
