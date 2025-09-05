@@ -1,4 +1,4 @@
-function time=calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke_y)
+function [time,start_judge,end_judge]=multi_return_calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke_y)
 %{
 输入参数
 %}
@@ -91,7 +91,3 @@ function time=calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke
     end
     time=end_judge-start_judge;
 end
-
-
-    
-
