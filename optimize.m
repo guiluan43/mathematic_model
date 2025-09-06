@@ -108,17 +108,17 @@ function [all_time_best,all_start_time,all_end_time,all_cast_time_best,all_explo
          if mod(echo, 1000)==0
             all_time_best
             echo
+            
+            all_cast_time_best
+            all_explode_time_best
+            all_velocity_best
+            all_angle_best
             cast_time=rand(size,1)*60;
             explode_time=rand(size,1).*8;
             velocity=rand(size,1).*70.+70;
             angle=-rand(size,1).*180;
-    
-            cast_time_best=cast_time;
-            explode_time_best=explode_time;
-            velocity_best=velocity;
-            angle_best=angle;
-            velocity_smoke_x=velocity.*cos(angle./180.*pi);
-            velocity_smoke_y=velocity.*sin(angle./180.*pi);
          end
     end
+
+    
 end

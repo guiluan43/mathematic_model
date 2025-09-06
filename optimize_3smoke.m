@@ -6,17 +6,17 @@ function [all_time_best,all_cast_time_best,all_explode_time_best,all_explode_tim
     weight_max = 0.9;        
     c1 = 2.0;           
     c2 = 2.0;   
-    size=100;
+    size=200;
     max_echo=10^(5);
 
-    cast_time=rand(size,1);
-    explode_time=rand(size,1).*5;
-    explode_time1=rand(size,1).*5;
-    explode_time2=rand(size,1).*5;
+    cast_time=rand(size,1)*20;
+    explode_time=rand(size,1).*20;
+    explode_time1=rand(size,1).*20;
+    explode_time2=rand(size,1).*20;
     velocity=rand(size,1).*70.+70;
-    angle=-rand(size,1).*10;
-    cast_interval1=rand(size,1)+1;
-    cast_interval2=rand(size,1)+1;
+    angle=-rand(size,1).*70-70;
+    cast_interval1=rand(size,1)*5+1;
+    cast_interval2=rand(size,1)*5+1;
 
 
     cast_time_best=cast_time;
@@ -55,14 +55,14 @@ function [all_time_best,all_cast_time_best,all_explode_time_best,all_explode_tim
     cast_interval1_v=zeros(size,1);
     cast_interval2_v=zeros(size,1);
 
-    cast_time_max=0.2;
-    explode_time_max=1;
-    explode_time1_max=1;
-    explode_time2_max=2;
-    velocity_max=0;
-    angle_max=0.2;
-    cast_interval1_max=0.4;
-    cast_interval2_max=0.4;
+    cast_time_max=4;
+    explode_time_max=4;
+    explode_time1_max=4;
+    explode_time2_max=4;
+    velocity_max=14;
+    angle_max=36;
+    cast_interval1_max=1;
+    cast_interval2_max=1;
 
     for echo=0:1:max_echo
         w = weight_max - (weight_max - weight_min) * echo / max_echo;
@@ -113,14 +113,14 @@ function [all_time_best,all_cast_time_best,all_explode_time_best,all_explode_tim
              cast_interval1(i,1) = cast_interval1(i,1) + cast_interval1_v(i,1);
              cast_interval2(i,1) = cast_interval2(i,1) + cast_interval2_v(i,1);
     
-             cast_time(i,1) = min(max(cast_time(i,1), 0), 1);
-             explode_time(i,1) = min(max(explode_time(i,1), 0), 5);
-             explode_time1(i,1) = min(max(explode_time1(i,1), 0), 5);
-             explode_time2(i,1) = min(max(explode_time2(i,1), 0), 10);
-             velocity(i,1) = min(max(velocity(i,1), 140), 140);
-             angle(i,1) = min(max(angle(i,1), -1), 0);
-             cast_interval1(i,1) = min(max(cast_interval1(i,1), 1), 3);
-             cast_interval2(i,1) = min(max(cast_interval2(i,1), 1), 3);
+             cast_time(i,1) = min(max(cast_time(i,1), 0), 20);
+             explode_time(i,1) = min(max(explode_time(i,1), 0), 20);
+             explode_time1(i,1) = min(max(explode_time1(i,1), 0), 20);
+             explode_time2(i,1) = min(max(explode_time2(i,1), 0), 20);
+             velocity(i,1) = min(max(velocity(i,1), 70), 140);
+             angle(i,1) = min(max(angle(i,1), -180), 0);
+             cast_interval1(i,1) = min(max(cast_interval1(i,1), 1), 6);
+             cast_interval2(i,1) = min(max(cast_interval2(i,1), 1), 6);
      
              velocity_smoke_x(i,1)=velocity(i,1)*cos(angle(i,1)/180*pi);
              velocity_smoke_y(i,1)=velocity(i,1)*sin(angle(i,1)/180*pi);
@@ -159,16 +159,31 @@ function [all_time_best,all_cast_time_best,all_explode_time_best,all_explode_tim
             all_time_best
             echo
          end
+         if mod(echo,200)==0
+                cast_time=rand(size,1)*5;
+                explode_time=rand(size,1).*10;
+                explode_time1=rand(size,1).*10;
+                explode_time2=rand(size,1).*10;
+                velocity=rand(size,1).*70.+70;
+                angle=-rand(size,1).*180;
+                cast_interval1=rand(size,1)*5+1;
+                cast_interval2=rand(size,1)*5+1;
+                if mod(echo,400)==0
+                    cast_time_best=cast_time;
+                    explode_time_best=explode_time;
+                    explode_time1_best=explode_time1;
+                    explode_time2_best=explode_time2;
+                    velocity_best=velocity;
+                    angle_best=angle;
+                    cast_interval1_best=cast_interval1;
+                    cast_interval2_best=cast_interval2;
+               end
+          end
     end
     
     all_cast_time_best
     all_explode_time_best 
     all_velocity_best 
     all_angle_best 
-
-
-
-
-
 
 end
