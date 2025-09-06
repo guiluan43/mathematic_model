@@ -1,15 +1,8 @@
-function time=calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke_y)
-%{
-输入参数
-%}
-    global distance_x1 distance_y1 distance_z1;
-    global distance_x2 distance_y2 distance_z2;
-    global distance_x3 distance_y3 distance_z3;
-    global distance_smoke_x distance_smoke_y distance_smoke_z;
-    global velocity_missle_x1 velocity_missle_y1 velocity_missle_z1;
-    global velocity_missle_x2 velocity_missle_y2 velocity_missle_z2;
-    global velocity_missle_x3 velocity_missle_y3 velocity_missle_z3; 
-
+function [time,start_judge,end_judge]=calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke_y,...
+    distance_x1,distance_y1,distance_z1, ...
+    distance_smoke_x,distance_smoke_y,distance_smoke_z, ...
+    velocity_missle_x1,velocity_missle_y1,velocity_missle_z1...
+    )
 
     start_time=cast_time+explode_time;
     end_time=min(67,cast_time+explode_time+20);
@@ -36,15 +29,7 @@ function time=calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke
         distance_attimet_missle_x1=distance_x1-velocity_missle_x1*t;
         distance_attimet_missle_y1=distance_y1-velocity_missle_y1*t;
         distance_attimet_missle_z1=distance_z1-velocity_missle_z1*t;
-    %{
-        distance_attimet_missle_x2=distance_x2-velocity_missle_x2*t;
-        distance_attimet_missle_y2=distance_y2-velocity_missle_y2*t;
-        distance_attimet_missle_z2=distance_z2-velocity_missle_z2*t;
-
-        distance_attimet_missle_x3=distance_x3-velocity_missle_x3*t;
-        distance_attimet_missle_y3=distance_y3-velocity_missle_y3*t;
-        distance_attimet_missle_z3=distance_z3-velocity_missle_z3*t;
-    %}
+    
        
 
 %{

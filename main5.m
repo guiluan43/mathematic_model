@@ -22,6 +22,8 @@ global distance_x3;global distance_y3;global distance_z3;
 global distance_smoke_x;global distance_smoke_y;global distance_smoke_z;
 global distance_smoke_x1;global distance_smoke_y1;global distance_smoke_z1;
 global distance_smoke_x2;global distance_smoke_y2;global distance_smoke_z2;
+global distance_smoke_x3;global distance_smoke_y3;global distance_smoke_z3;
+global distance_smoke_x4;global distance_smoke_y4;global distance_smoke_z4;
 global velocity_missle_x1;global velocity_missle_y1;global velocity_missle_z1;
 global velocity_missle_x2;global velocity_missle_y2;global velocity_missle_z2;
 global velocity_missle_x3;global velocity_missle_y3;global velocity_missle_z3;
@@ -34,6 +36,9 @@ distance_x3=6000;distance_y3=-3000;distance_z3=700;
 distance_smoke_x=17800;distance_smoke_y=0;distance_smoke_z=1800;
 distance_smoke_x1=12000;distance_smoke_y1=1400;distance_smoke_z1=1400;
 distance_smoke_x2=6000;distance_smoke_y2=-3000;distance_smoke_z2=700;
+distance_smoke_x3=11000;distance_smoke_y3=2000;distance_smoke_z3=1800;
+distance_smoke_x4=13000;distance_smoke_y4=-2000;distance_smoke_z4=1300;
+
 
 [velocity_missle_x1,velocity_missle_y1,velocity_missle_z1]=constant_calculation(distance_x1,distance_y1,distance_z1);
 
@@ -55,42 +60,29 @@ c2 = 2.0;
 size=100;
 max_echo=10^(5);
 
-cast_time=rand(size,1)*3;
-cast_time1=rand(size,1)*3;
-cast_time2=rand(size,1)*3;
-explode_time=rand(size,1).*10;
-explode_time1=rand(size,1).*10;
-explode_time2=rand(size,1).*10;
+cast_time=rand(size,1);
+explode_time=rand(size,1).*5;
+explode_time1=rand(size,1).*5;
+explode_time2=rand(size,1).*5;
 velocity=rand(size,1).*70.+70;
-angle=-rand(size,1).*180;
-velocity1=rand(size,1).*70.+70;
-angle1=-rand(size,1).*180;
-velocity2=rand(size,1).*70.+70;
-angle2=-rand(size,1).*180;
-
+angle=-rand(size,1).*10;
+cast_interval1=rand(size,1)+1;
+cast_interval2=rand(size,1)+1;
 
 
 cast_time_best=cast_time;
-cast_time1_best=cast_time1;
-cast_time2_best=cast_time2;
 explode_time_best=explode_time;
 explode_time1_best=explode_time1;
 explode_time2_best=explode_time2;
 velocity_best=velocity;
 angle_best=angle;
-velocity1_best=velocity1;
-angle1_best=angle1;
-velocity2_best=velocity2;
-angle2_best=angle2;
+cast_interval1_best=cast_interval1;
+cast_interval2_best=cast_interval2;
 
 
 velocity_smoke_x=velocity.*cos(angle./180.*pi);
 velocity_smoke_y=velocity.*sin(angle./180.*pi);
-velocity1_smoke_x=velocity1.*cos(angle1./180.*pi);
-velocity1_smoke_y=velocity1.*sin(angle1./180.*pi);
-velocity2_smoke_x=velocity2.*cos(angle2./180.*pi);
-velocity2_smoke_y=velocity2.*sin(angle2./180.*pi);
-time_best=arrayfun(@(i) calculation_3plane(cast_time(i,1),explode_time(i,1),explode_time1(i,1),explode_time2(i,1),velocity_smoke_x(i,1),velocity_smoke_y(i,1),cast_interval1(i,1),cast_interval2(i,1)),1:size)';
+time_best=arrayfun(@(i) calculation_3smoke(cast_time(i,1),explode_time(i,1),explode_time1(i,1),explode_time2(i,1),velocity_smoke_x(i,1),velocity_smoke_y(i,1),cast_interval1(i,1),cast_interval2(i,1)),1:size)';
 
 [all_time_best, all_best_idx] = max(time_best);
 all_cast_time_best = cast_time(all_best_idx, 1);

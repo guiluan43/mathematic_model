@@ -6,9 +6,9 @@ pi=3.14159265358979;
 
            
 
-cast_time=0;
-explode_time=3.762396172836544;
-velocity_smoke_x=140*cos();
+cast_time=1.5;
+explode_time=3.6;
+velocity_smoke_x=120;
 velocity_smoke_y=0;
 start_time=cast_time+explode_time;
 end_time=min(67,cast_time+explode_time+20);
@@ -16,13 +16,6 @@ end_time=min(67,cast_time+explode_time+20);
 %{
 速度常数计算
 %}
-global distance_x1;global distance_y1;global distance_z1;
-global distance_x2;global distance_y2;global distance_z2;
-global distance_x3;global distance_y3;global distance_z3;
-global distance_smoke_x;global distance_smoke_y;global distance_smoke_z;
-global velocity_missle_x1;global velocity_missle_y1;global velocity_missle_z1;
-global velocity_missle_x2;global velocity_missle_y2;global velocity_missle_z2;
-global velocity_missle_x3;global velocity_missle_y3;global velocity_missle_z3;
 
 
 
@@ -37,4 +30,9 @@ distance_smoke_x=17800;distance_smoke_y=0;distance_smoke_z=1800;
 
 [velocity_missle_x3,velocity_missle_y3,velocity_missle_z3]=constant_calculation(distance_x3,distance_y3,distance_z3);
 
-time=calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke_y)
+[time,start_judge,end_judge]=calculation(cast_time,explode_time,velocity_smoke_x,velocity_smoke_y, ...
+    distance_x1,distance_y1,distance_z1, ...
+    distance_smoke_x,distance_smoke_y,distance_smoke_z, ...
+    velocity_missle_x1,velocity_missle_y1,velocity_missle_z1);
+
+time
