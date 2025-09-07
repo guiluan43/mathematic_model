@@ -181,7 +181,7 @@ function [all_time_best,all_cast_time_best,all_explode_time_best,all_explode_tim
             all_time_best
             echo
          end
-         if mod(echo,600)==0
+         if mod(echo,1000)==0
                 cast_time=rand(size,1)*5;
                 explode_time=rand(size,1).*10;
                 explode_time1=rand(size,1).*10;

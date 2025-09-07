@@ -124,32 +124,11 @@ function [all_time_best,all_start_time,all_end_time,all_cast_time_best,all_explo
             all_explode_time_best
             all_velocity_best
             all_angle_best
+            cast_time=rand(size,1)*60;
+            explode_time=rand(size,1).*8;
+            velocity=rand(size,1).*70.+70;
+            angle=-rand(size,1).*180;
          end
-         if mod(echo,600)==0
-                cast_time=rand(size,1)*5;
-                explode_time=rand(size,1).*10;
-                
-                velocity=rand(size,1).*70.+70;
-                angle=-rand(size,1).*180;
-                
-                
-                    time_best=arrayfun(@(i) getFirstOutput(cast_time(i,1),explode_time(i,1),velocity_smoke_x(i,1),velocity_smoke_y(i,1), ...
-                                                       distance_x1,distance_y1,distance_z1, ...
-                                                       distance_smoke_x,distance_smoke_y,distance_smoke_z, ...
-                                                       velocity_missle_x1,velocity_missle_y1,velocity_missle_z1),1:size)';
-    
-                    [all_time_best_t, all_best_idx] = max(time_best);
-                    all_cast_time_best_t = cast_time(all_best_idx, 1);
-                    all_explode_time_best_t = explode_time(all_best_idx, 1);
-                    all_velocity_best_t = velocity(all_best_idx, 1);
-                    all_angle_best_t = angle(all_best_idx, 1);
-                    cast_time_best=cast_time;
-                    explode_time_best=explode_time;
-                    velocity_best=velocity;
-                    angle_best=angle;
-                    
-               
-          end
     end
 
     

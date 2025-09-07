@@ -6,10 +6,6 @@ function [time,start_judge,end_judge]=calculation(cast_time,explode_time,velocit
 
     start_time=cast_time+explode_time;
     end_time=min(67,cast_time+explode_time+20);
-%{
-速度常数计算
-%}
-
 
     start_judge=end_time;
     end_judge=end_time;
@@ -34,8 +30,6 @@ function [time,start_judge,end_judge]=calculation(cast_time,explode_time,velocit
 
 %{
 近似计算8个点
-%}
-%{
 检验夹角
 %}
     distanceproject_attimet_missle_tofake=sqrt(distance_attimet_missle_x1^2+(distance_attimet_missle_y1-200)^2);

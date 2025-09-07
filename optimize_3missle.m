@@ -11,14 +11,14 @@ function [all_time_best,all_cast_time_best,all_explode_time_best,all_explode_tim
     c1 = 2.0;           
     c2 = 2.0;   
     size=200;
-    max_echo=10^(5);
+    max_echo=4000;
 
     cast_time=rand(size,1)*40;
     explode_time=rand(size,1).*20;
     explode_time1=rand(size,1).*20;
     explode_time2=rand(size,1).*20;
     velocity=rand(size,1).*20.+120;
-    angle=-rand(size,1).*180;
+    angle=-rand(size,1).*180-180;
     cast_interval1=rand(size,1)*5+1;
     cast_interval2=rand(size,1)*5+1;
 
@@ -45,6 +45,7 @@ function [all_time_best,all_cast_time_best,all_explode_time_best,all_explode_tim
                                                        velocity_missle_x3,velocity_missle_y3,velocity_missle_z3),1:size)';
 
     [all_time_best, all_best_idx] = max(time_best);
+    all_time_best_t=all_time_best;
     all_cast_time_best = cast_time(all_best_idx, 1);
     all_explode_time_best = explode_time(all_best_idx, 1);
     all_explode_time1_best = explode_time1(all_best_idx, 1);
@@ -53,6 +54,15 @@ function [all_time_best,all_cast_time_best,all_explode_time_best,all_explode_tim
     all_angle_best = angle(all_best_idx, 1);
     all_cast_interval1_best=cast_interval1_best(all_best_idx,1);
     all_cast_interval2_best=cast_interval2_best(all_best_idx,1);
+
+    all_cast_time_best_t = cast_time(all_best_idx, 1);
+    all_explode_time_best_t = explode_time(all_best_idx, 1);
+    all_explode_time1_best_t = explode_time1(all_best_idx, 1);
+    all_explode_time2_best_t = explode_time2(all_best_idx, 1);
+    all_velocity_best_t = velocity(all_best_idx, 1);
+    all_angle_best_t = angle(all_best_idx, 1);
+    all_cast_interval1_best_t=cast_interval1_best(all_best_idx,1);
+    all_cast_interval2_best_t=cast_interval2_best(all_best_idx,1);
 
     cast_time_v=zeros(size,1);
     explode_time_v=zeros(size,1);
@@ -94,14 +104,14 @@ function [all_time_best,all_cast_time_best,all_explode_time_best,all_explode_tim
     
     
     
-             cast_time_v(i,1) = w * cast_time_v(i,1) + c1*cast_r1.* (cast_time_best(i,1) - cast_time(i,1)) + c2 * cast_r2 .* (all_cast_time_best - cast_time(i,1));
-             explode_time_v(i,1) = w * explode_time_v(i,1) + c1*explode_r1.* (explode_time_best(i,1) - explode_time(i,1)) + c2 * explode_r2 .* (all_explode_time_best - explode_time(i,1));
-             explode_time1_v(i,1) = w * explode_time1_v(i,1) + c1*explode1_r1.* (explode_time1_best(i,1) - explode_time1(i,1)) + c2 * explode1_r2 .* (all_explode_time1_best - explode_time1(i,1));
-             explode_time2_v(i,1) = w * explode_time2_v(i,1) + c1*explode2_r1.* (explode_time2_best(i,1) - explode_time2(i,1)) + c2 * explode2_r2 .* (all_explode_time2_best - explode_time2(i,1));
-             velocity_v(i,1) = w * velocity_v(i,1) + c1*v_r1.* (velocity_best(i,1) - velocity(i,1)) + c2 * v_r2 .* (all_velocity_best - velocity(i,1));
-             angle_v(i,1) = w * angle_v(i,1) + c1*a_r1.* (angle_best(i,1) - angle(i,1)) + c2 * a_r2 .* (all_angle_best - angle(i,1));
-             cast_interval1_v(i,1) = w * cast_interval1_v(i,1) + c1*cast_interval1_r1.* (cast_interval1_best(i,1) - cast_interval1(i,1)) + c2 * cast_interval1_r2 .* (all_cast_interval1_best - cast_interval1(i,1));
-             cast_interval2_v(i,1) = w * cast_interval2_v(i,1) + c1*cast_interval2_r1.* (cast_interval2_best(i,1) - cast_interval2(i,1)) + c2 * cast_interval2_r2 .* (all_cast_interval2_best - cast_interval2(i,1));
+             cast_time_v(i,1) = w * cast_time_v(i,1) + c1*cast_r1.* (cast_time_best(i,1) - cast_time(i,1)) + c2 * cast_r2 .* (all_cast_time_best_t - cast_time(i,1))+rand()*0.01*w;
+             explode_time_v(i,1) = w * explode_time_v(i,1) + c1*explode_r1.* (explode_time_best(i,1) - explode_time(i,1)) + c2 * explode_r2 .* (all_explode_time_best_t - explode_time(i,1))+rand()*0.01*w;
+             explode_time1_v(i,1) = w * explode_time1_v(i,1) + c1*explode1_r1.* (explode_time1_best(i,1) - explode_time1(i,1)) + c2 * explode1_r2 .* (all_explode_time1_best_t - explode_time1(i,1))+rand()*0.01*w;
+             explode_time2_v(i,1) = w * explode_time2_v(i,1) + c1*explode2_r1.* (explode_time2_best(i,1) - explode_time2(i,1)) + c2 * explode2_r2 .* (all_explode_time2_best_t - explode_time2(i,1))+rand()*0.01*w;
+             velocity_v(i,1) = w * velocity_v(i,1) + c1*v_r1.* (velocity_best(i,1) - velocity(i,1)) + c2 * v_r2 .* (all_velocity_best_t - velocity(i,1))+rand()*0.1*w;
+             angle_v(i,1) = w * angle_v(i,1) + c1*a_r1.* (angle_best(i,1) - angle(i,1)) + c2 * a_r2 .* (all_angle_best_t - angle(i,1))+rand()*0.1*w;
+             cast_interval1_v(i,1) = w * cast_interval1_v(i,1) + c1*cast_interval1_r1.* (cast_interval1_best(i,1) - cast_interval1(i,1)) + c2 * cast_interval1_r2 .* (all_cast_interval1_best_t - cast_interval1(i,1))+rand()*0.01*w;
+             cast_interval2_v(i,1) = w * cast_interval2_v(i,1) + c1*cast_interval2_r1.* (cast_interval2_best(i,1) - cast_interval2(i,1)) + c2 * cast_interval2_r2 .* (all_cast_interval2_best_t - cast_interval2(i,1))+rand()*0.01*w;
     
              cast_time_v(i,1)= min(max(cast_time_v(i,1), -cast_time_max), cast_time_max);
              explode_time_v(i,1)= min(max(explode_time_v(i,1), -explode_time_max), explode_time_max);
@@ -126,7 +136,7 @@ function [all_time_best,all_cast_time_best,all_explode_time_best,all_explode_tim
              explode_time1(i,1) = min(max(explode_time1(i,1), 0), 20);
              explode_time2(i,1) = min(max(explode_time2(i,1), 0), 20);
              velocity(i,1) = min(max(velocity(i,1), 120), 140);
-             angle(i,1) = min(max(angle(i,1), -180), 0);
+             angle(i,1) = min(max(angle(i,1), -360), -180);
              cast_interval1(i,1) = min(max(cast_interval1(i,1), 1), 6);
              cast_interval2(i,1) = min(max(cast_interval2(i,1), 1), 6);
      
@@ -153,21 +163,32 @@ function [all_time_best,all_cast_time_best,all_explode_time_best,all_explode_tim
                 cast_interval2_best(i,1)=cast_interval2(i,1);
     
                 
-                if time_tochoose>all_time_best
-                    all_time_best=time_tochoose;
-                    all_cast_time_best = cast_time(i, 1);
-                    all_explode_time_best = explode_time(i, 1);
-                    all_explode_time1_best = explode_time1(i, 1);
-                    all_explode_time2_best = explode_time2(i, 1);
-                    all_velocity_best = velocity(i, 1);
-                    all_angle_best = angle(i, 1);
-                    all_cast_interval1_best=cast_interval1(i,1);
-                    all_cast_interval2_best=cast_interval2(i,1);
-                    all_start_best=start0;
-                    all_end_best=end0;
-                    time1_best=time1;
-                    time2_best=time2;
-                    time3_best=time3;
+                if time_tochoose>all_time_best_t
+                    all_time_best_t=time_tochoose;
+                    all_cast_time_best_t = cast_time(i, 1);
+                    all_explode_time_best_t = explode_time(i, 1);
+                    all_explode_time1_best_t = explode_time1(i, 1);
+                    all_explode_time2_best_t = explode_time2(i, 1);
+                    all_velocity_best_t = velocity(i, 1);
+                    all_angle_best_t = angle(i, 1);
+                    all_cast_interval1_best_t=cast_interval1(i,1);
+                    all_cast_interval2_best_t=cast_interval2(i,1);
+                    if time_tochoose>all_time_best
+                        all_time_best=time_tochoose;
+                        all_cast_time_best = cast_time(i, 1);
+                        all_explode_time_best = explode_time(i, 1);
+                        all_explode_time1_best = explode_time1(i, 1);
+                        all_explode_time2_best = explode_time2(i, 1);
+                        all_velocity_best = velocity(i, 1);
+                        all_angle_best = angle(i, 1);
+                        all_cast_interval1_best=cast_interval1(i,1);
+                        all_cast_interval2_best=cast_interval2(i,1);
+                        all_start_best=start0;
+                        all_end_best=end0;
+                        time1_best=time1;
+                        time2_best=time2;
+                        time3_best=time3;
+                    end
                     if echo>=1000
                         all_start_best
                         all_end_best
@@ -183,16 +204,16 @@ function [all_time_best,all_cast_time_best,all_explode_time_best,all_explode_tim
             all_time_best
             echo
 
-            if mod(echo,200)==0
+            if mod(echo,600)==0
                 cast_time=rand(size,1)*40;
                 explode_time=rand(size,1).*20;
                 explode_time1=rand(size,1).*20;
                 explode_time2=rand(size,1).*20;
                 velocity=rand(size,1).*120.+20;
-                angle=-rand(size,1).*180;
+                angle=-rand(size,1).*180-180;
                 cast_interval1=rand(size,1)*5+1;
                 cast_interval2=rand(size,1)*5+1;
-                if mod(echo,400)==0
+                
                     cast_time_best=cast_time;
                     explode_time_best=explode_time;
                     explode_time1_best=explode_time1;
@@ -201,7 +222,26 @@ function [all_time_best,all_cast_time_best,all_explode_time_best,all_explode_tim
                     angle_best=angle;
                     cast_interval1_best=cast_interval1;
                     cast_interval2_best=cast_interval2;
-                end
+                
+                    time_best=arrayfun(@(i) getFirstOutput(cast_time(i,1),explode_time(i,1),explode_time1(i,1),explode_time2(i,1),velocity_smoke_x(i,1),velocity_smoke_y(i,1),cast_interval1(i,1),cast_interval2(i,1), ...
+                                                       distance_x1,distance_y1,distance_z1, ...
+                                                       distance_x2,distance_y2,distance_z2,...
+                                                       distance_x3,distance_y3,distance_z3,...
+                                                       distance_smoke_x,distance_smoke_y,distance_smoke_z, ...
+                                                       velocity_missle_x1,velocity_missle_y1,velocity_missle_z1,...
+                                                       velocity_missle_x2,velocity_missle_y2,velocity_missle_z2,...
+                                                       velocity_missle_x3,velocity_missle_y3,velocity_missle_z3),1:size)';
+
+                    [all_time_best_t, all_best_idx] = max(time_best);
+                    
+                    all_cast_time_best_t = cast_time(all_best_idx, 1);
+                    all_explode_time_best_t = explode_time(all_best_idx, 1);
+                    all_explode_time1_best_t = explode_time1(all_best_idx, 1);
+                    all_explode_time2_best_t = explode_time2(all_best_idx, 1);
+                    all_velocity_best_t = velocity(all_best_idx, 1);
+                    all_angle_best_t = angle(all_best_idx, 1);
+                    all_cast_interval1_best_t=cast_interval1_best(all_best_idx,1);
+                    all_cast_interval2_best_t=cast_interval2_best(all_best_idx,1);
             end
          end
     end
